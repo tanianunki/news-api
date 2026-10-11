@@ -2,6 +2,7 @@
 
 import datetime
 import json
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 import orjson
@@ -10,13 +11,19 @@ from fastapi import FastAPI, HTTPException, Response
 DATA_FILE = Path(__file__).parent.parent / "data" / "news.json"
 NEWS: list[dict] = []
 
-app = FastAPI(title="news-api")
 
-
-@app.on_event("startup")
 def load_news() -> None:
     NEWS.clear()
     NEWS.extend(json.loads(DATA_FILE.read_text(encoding="utf-8")))
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    load_news()
+    yield
+
+
+app = FastAPI(title="news-api", lifespan=lifespan)
 
 
 def as_json(payload: dict) -> Response:

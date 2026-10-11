@@ -1,0 +1,8 @@
+[
+  {"id": 1, "date": "2026-03-01", "title": "La ciudad inaugura su primera línea de tranvía", "section": "local"},
+  {"id": 2, "date": "2026-03-01", "title": "El equipo local gana la final regional", "section": "deportes"},
+  {"id": 3, "date": "2026-03-01", "title": "Nuevo récord de energía solar en la región", "section": "economía"},
+  {"id": 4, "date": "2026-03-02", "title": "La biblioteca central amplía su horario", "section": "local"},
+  {"id": 5, "date": "2026-03-02", "title": "Se anuncia el calendario del festival de cine", "section": "cultura"},
+  {"id": 6, "date": "2026-03-02", "title": "La universidad abre un laboratorio de robótica", "section": "ciencia"}
+]

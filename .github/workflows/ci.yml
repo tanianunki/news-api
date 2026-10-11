@@ -1,0 +1,29 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt -r requirements-dev.txt pip-audit==2.10.1
+      - name: Juez previo
+        run: python -m pytest -q tests/test_api.py
+      - name: Todos los tests
+        run: python -m pytest -q
+      - name: Dependencias vulnerables
+        run: pip-audit -r requirements.txt
+      - name: APIs deprecadas
+        run: python -W error::DeprecationWarning:app.main -c "import app.main"
